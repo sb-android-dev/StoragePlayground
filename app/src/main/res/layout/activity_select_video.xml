@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectVideo">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@id/btnSelectVideo"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivPlaceholder"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:alpha="0.5"
+            android:src="@drawable/select_video"
+            app:layout_constraintBottom_toTopOf="@id/tvPlaceholder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvPlaceholder"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/select_video_from_storage"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivPlaceholder" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSelectedVideo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/btnSelectVideo"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tlDetails">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivVideoThumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:shapeAppearanceOverlay="@style/ThumbnailShape"
+                android:scaleType="centerCrop"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:src="@tools:sample/avatars"/>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabPlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/play"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/play" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--        <com.google.android.material.card.MaterialCardView-->
+<!--            android:id="@+id/llSelectedVideoContainer"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            app:cardCornerRadius="16dp"-->
+<!--            android:elevation="8dp"-->
+<!--            app:layout_constrainedHeight="true"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/tlDetails"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent">-->
+
+<!--            <VideoView-->
+<!--                android:id="@+id/vvSelectedVideo"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:visibility="invisible"-->
+<!--                tools:ignore="ContentDescription" />-->
+
+<!--        </com.google.android.material.card.MaterialCardView>-->
+
+        <TableLayout
+            android:id="@+id/tlDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TableRow>
+
+                <TextView
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    android:text="@string/name" />
+
+                <TextView
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    android:text="@string/colon" />
+
+                <TextView
+                    android:id="@+id/tvVideoFileName"
+                    android:layout_weight="1" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    android:text="@string/size" />
+
+                <TextView
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    android:text="@string/colon" />
+
+                <TextView
+                    android:id="@+id/tvVideoFileSize"
+                    android:layout_weight="1" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    android:text="@string/mime_type" />
+
+                <TextView
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    android:text="@string/colon" />
+
+                <TextView
+                    android:id="@+id/tvVideoFileType"
+                    android:layout_weight="1" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    android:text="@string/resolution" />
+
+                <TextView
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    android:text="@string/colon" />
+
+                <TextView
+                    android:id="@+id/tvVideoResolution"
+                    android:layout_weight="1" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    android:text="@string/duration" />
+
+                <TextView
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    android:text="@string/colon" />
+
+                <TextView
+                    android:id="@+id/tvVideoDuration"
+                    android:layout_weight="1" />
+            </TableRow>
+        </TableLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvVideos"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        tools:visibility="invisible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnSelectVideo"
+        tools:listitem="@layout/item_video_data"/>
+
+    <Button
+        android:id="@+id/btnSelectVideo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_max="320dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/select_video"
+        app:layout_constraintBottom_toTopOf="@id/switchMultipleFiles"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/switchMultipleFiles"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_max="320dp"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        tools:checked="true"
+        android:text="@string/select_multiple_files"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

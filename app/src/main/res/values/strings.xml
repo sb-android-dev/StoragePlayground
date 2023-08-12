@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Storage Playground</string>
+    <string name="select_image_from_storage">Select image from storage</string>
+    <string name="select_video_from_storage">Select video from storage</string>
+    <string name="select_audio_from_storage">Select audio from storage</string>
+    <string name="read_operations">Read Operations</string>
+    <string name="read_images_from_storage">Read Images from the Storage</string>
+    <string name="read_videos_from_storage">Read Videos from the Storage</string>
+    <string name="read_audios_from_storage">Read Audios from the Storage</string>
+    <string name="select_image">Select Image</string>
+    <string name="select_video">Select Video</string>
+    <string name="select_audio">Select Audio</string>
+    <string name="write_operations">Write Operations</string>
+    <string name="save_image">Save Image</string>
+    <string name="save_video">Save Video</string>
+    <string name="save_audio">Save Audio</string>
+    <string name="name">Name</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="stop">Stop</string>
+    <string name="initial_point">00:00</string>
+    <string name="colon">\u0020:\u0020</string>
+    <string name="size">Size</string>
+    <string name="mime_type">MIME Type</string>
+    <string name="resolution">Resolution</string>
+    <string name="select_multiple_files">Select multiple files</string>
+    <string name="duration">Duration</string>
+    <string name="video_player">Video Player</string>
+    <string name="image_preview">Image Preview</string>
+
+    <string name="write_images_to_storage">Write Images to the Storage</string>
+    <string name="write_videos_to_storage">Write Videos to the Storage</string>
+    <string name="write_audios_to_storage">Write Audios to the Storage</string>
+    <string name="capture_image">Capture Image</string>
+    <string name="record_video">Record Video</string>
+    <string name="record_audio">Record Audio</string>
+    <string name="close">Close</string>
+    <string name="view">View</string>
+</resources>

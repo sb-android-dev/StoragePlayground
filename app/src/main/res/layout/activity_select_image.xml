@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectImage">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clPlaceholder"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnSelectImage">
+
+        <ImageView
+            android:id="@+id/ivPlaceholder"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:src="@drawable/select_image"
+            android:alpha="0.5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tvPlaceholder"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvPlaceholder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/select_image_from_storage"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            app:layout_constraintTop_toBottomOf="@id/ivPlaceholder"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSelectedImage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnSelectImage">
+
+        <ImageView
+            android:id="@+id/ivSelectedImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tlDetails"
+            tools:ignore="ContentDescription" />
+
+        <TableLayout
+            android:id="@+id/tlDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/ivSelectedImage"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TableRow>
+                <TextView android:text="@string/name"
+                    style="@style/TextAppearance.Material3.TitleMedium"/>
+                <TextView android:text="@string/colon"
+                    style="@style/TextAppearance.Material3.TitleMedium" />
+                <TextView
+                    android:id="@+id/tvImageFileName"
+                    android:layout_weight="1"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView android:text="@string/size"
+                    style="@style/TextAppearance.Material3.TitleMedium"/>
+                <TextView android:text="@string/colon"
+                    style="@style/TextAppearance.Material3.TitleMedium" />
+                <TextView
+                    android:id="@+id/tvImageFileSize"
+                    android:layout_weight="1"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView android:text="@string/mime_type"
+                    style="@style/TextAppearance.Material3.TitleMedium" />
+                <TextView android:text="@string/colon"
+                    style="@style/TextAppearance.Material3.TitleMedium" />
+                <TextView
+                    android:id="@+id/tvImageFileType"
+                    android:layout_weight="1"/>
+            </TableRow>
+
+            <TableRow>
+                <TextView android:text="@string/resolution"
+                    style="@style/TextAppearance.Material3.TitleMedium" />
+                <TextView android:text="@string/colon"
+                    style="@style/TextAppearance.Material3.TitleMedium" />
+                <TextView
+                    android:id="@+id/tvImageFileResolution"
+                    android:layout_weight="1"/>
+            </TableRow>
+        </TableLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvImages"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnSelectImage"
+        tools:listitem="@layout/item_image_data"/>
+
+    <Button
+        android:id="@+id/btnSelectImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_max="320dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/select_image"
+        app:layout_constraintBottom_toTopOf="@id/switchMultipleFiles"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/switchMultipleFiles"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_max="320dp"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        tools:checked="true"
+        android:text="@string/select_multiple_files"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

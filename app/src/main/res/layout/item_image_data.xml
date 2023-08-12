@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivThumbnail"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/ThumbnailShape"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@tools:sample/avatars"/>
+
+        <TextView
+            android:id="@+id/tvFileName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivThumbnail"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="@tools:sample/lorem/random"/>
+
+        <TextView
+            android:id="@+id/tvFileSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            android:textAllCaps="true"
+            app:layout_constraintStart_toStartOf="@id/tvFileName"
+            app:layout_constraintTop_toBottomOf="@id/tvFileName"
+            tools:text="12.05 MB"/>
+
+        <TextView
+            android:id="@+id/tvFileType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            app:layout_constraintStart_toStartOf="@id/tvFileName"
+            app:layout_constraintTop_toBottomOf="@id/tvImageResolution"
+            tools:text="image/jpeg"/>
+
+        <TextView
+            android:id="@+id/tvImageResolution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+            android:textAllCaps="true"
+            app:layout_constraintStart_toStartOf="@id/tvFileName"
+            app:layout_constraintTop_toBottomOf="@id/tvFileSize"
+            tools:text="1080 x 1920 px"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnView"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/view"
+            app:layout_constraintEnd_toEndOf="@id/tvFileName"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
