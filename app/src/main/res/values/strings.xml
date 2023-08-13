@@ -36,4 +36,5 @@
     <string name="record_audio">Record Audio</string>
     <string name="close">Close</string>
     <string name="view">View</string>
+    <string name="resume">Resume</string>
 </resources>

@@ -7,13 +7,18 @@ import android.media.MediaRecorder
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment.DIRECTORY_DOWNLOADS
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.sbdev.storageplayground.databinding.ActivityStoreAudioBinding
+import com.sbdev.storageplayground.models.MediaState
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -25,6 +30,22 @@ class StoreAudio : AppCompatActivity() {
 
     private var recorder: MediaRecorder? = null
 
+    private var recordingState: MediaState = MediaState.STOPPED
+
+    private var milliseconds: Long = 0
+    private var handler: Handler? = null
+    private val runnable: Runnable = object: Runnable {
+        override fun run() {
+            binding.timer.text = milliseconds.toReadableDuration()
+
+            if(recordingState == MediaState.PLAYING) {
+                milliseconds += 1000L
+
+                handler?.postDelayed(this, 1000L)
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,6 +55,8 @@ class StoreAudio : AppCompatActivity() {
         if (!allPermissionsGranted()) {
             requestPermission()
         }
+
+        showHideButtons()
 
         binding.btnRecordAudio.setOnClickListener {
             if (!this.packageManager.hasSystemFeature(PackageManager.FEATURE_MICROPHONE)) {
@@ -46,6 +69,15 @@ class StoreAudio : AppCompatActivity() {
             }
 
             recordAudio()
+        }
+
+        binding.btnPauseRecord.setOnClickListener {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                pauseRecording()
+        }
+
+        binding.btnStopRecord.setOnClickListener {
+            stopRecording()
         }
     }
 
@@ -88,6 +120,7 @@ class StoreAudio : AppCompatActivity() {
                 recorder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                     MediaRecorder(this)
                 } else {
+                    @Suppress("DEPRECATION")
                     MediaRecorder()
                 }.apply {
                     setAudioSource(MediaRecorder.AudioSource.MIC)
@@ -102,6 +135,15 @@ class StoreAudio : AppCompatActivity() {
                     }
 
                     start()
+
+                    recordingState = MediaState.PLAYING
+
+                    runTimer()
+                    showHideButtons()
+
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        Log.d(StoreAudio::class.java.name, "recordAudio: sessionID: ${this.logSessionId}")
+                    }
                 }
             }
         }
@@ -133,8 +175,53 @@ class StoreAudio : AppCompatActivity() {
             release()
         }
         recorder = null
+
+        recordingState = MediaState.STOPPED
+
+        milliseconds = 0
+        showHideButtons()
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun pauseRecording() {
+        recorder?.apply {
+            recordingState = if (recordingState == MediaState.PAUSED) {
+                resume()
+                MediaState.PLAYING
+            } else {
+                pause()
+                MediaState.PAUSED
+            }
+        }
+
+        binding.btnPauseRecord.apply {
+            text = if(recordingState == MediaState.PAUSED) getString(R.string.resume) else getString(R.string.pause)
+        }
+
+        if(recordingState == MediaState.PLAYING)
+            runTimer()
+
+        showHideButtons()
+    }
+
+    private fun showHideButtons() {
+        binding.btnRecordAudio.visibility = if(recordingState == MediaState.STOPPED) View.VISIBLE else View.GONE
+
+        binding.btnStopRecord.visibility = if(recordingState == MediaState.STOPPED) View.GONE else View.VISIBLE
+
+        binding.btnPauseRecord.visibility = if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if(recordingState == MediaState.STOPPED) View.GONE else View.VISIBLE
+        } else {
+            View.GONE
+        }
+    }
+
+    private fun runTimer() {
+        handler = Handler(Looper.getMainLooper())
+        handler?.post {
+            handler?.postDelayed(runnable, 1000L)
+        }
+    }
 
     private fun requestPermission() {
         resultLauncher.launch(REQUIRED_PERMISSIONS)
@@ -163,6 +250,12 @@ class StoreAudio : AppCompatActivity() {
         super.onStop()
         recorder?.release()
         recorder = null
+    }
+
+    override fun onDestroy() {
+        handler?.removeCallbacks(runnable)
+        handler = null
+        super.onDestroy()
     }
 
     companion object {
